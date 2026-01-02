@@ -1,0 +1,1608 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "AddNote": {
+      "description": "User can add a note to his favourited buyers",
+      "example": {
+        "content": "This is my favourote buyer"
+      },
+      "properties": {
+        "content": {
+          "description": "Note content",
+          "type": "string"
+        }
+      },
+      "title": "Add note to buyer",
+      "type": "object"
+    },
+    "CreateAuthProvider": {
+      "description": "Create Login Auth Method",
+      "example": {
+        "apple_identifier": "XYZ",
+        "email": "buyer@email.com",
+        "provider": "apple"
+      },
+      "properties": {
+        "apple_identifier": {
+          "description": "Apple identifier if it's apple login",
+          "type": "string"
+        },
+        "email": {
+          "description": "Login Method Email address",
+          "type": "string"
+        },
+        "provider": {
+          "description": "Login provider",
+          "type": "string"
+        }
+      },
+      "title": "Create Login Auth Method",
+      "type": "object"
+    },
+    "CreateBuyer": {
+      "description": "Create Buyer",
+      "example": {
+        "additional_requests": [
+          "Desire1",
+          "Desire2",
+          "Desire3"
+        ],
+        "buyer_expiration_date": "2024-06-04 11:08:48Z",
+        "buyer_locations_of_interest": [
+          "Location1",
+          "Location2",
+          "Location3"
+        ],
+        "buyer_need": {
+          "budget_upto": "900k",
+          "financial_status": "pre_qualified, pre_approved, all_cash, undetermined, one of them",
+          "min_area": "1.5k",
+          "min_bathrooms": "1.5",
+          "min_bedrooms": "2",
+          "property_type": " single_family_house, townhouse, condo, apartment, multi_family_house, mobile, one of them",
+          "purchase_type": "purchase, lease, one of them"
+        },
+        "email": "buyer@email.com",
+        "first_name": "First",
+        "image_url": "/image.png",
+        "is_favourite": false,
+        "last_name": "Last",
+        "note": "This is my favourite buyer and I am note for it",
+        "primary_phone_number": "+12345"
+      },
+      "properties": {
+        "additional_requests": {
+          "description": "Buyer's additional desires",
+          "type": "string"
+        },
+        "budget_upto": {
+          "description": "Buyer's Budget upto",
+          "type": "string"
+        },
+        "buyer_expiration_date": {
+          "description": "Datetime of video file last modification",
+          "format": "date-time",
+          "type": "string",
+          "x-nullable": true
+        },
+        "buyer_locations_of_interest": {
+          "description": "Buyer's locations",
+          "type": "list"
+        },
+        "email": {
+          "description": "Buyer's Email address",
+          "type": "string"
+        },
+        "financial_status": {
+          "description": "Buyer's need Financial status must be pre_qualified/pre_approved/all_cash/undeterminded",
+          "type": "string"
+        },
+        "first_name": {
+          "description": "Buyer's first name",
+          "type": "string"
+        },
+        "image_url": {
+          "description": "Buyer's image url",
+          "type": "string"
+        },
+        "is_favourite": {
+          "description": "Buyer is favourite/not_favourite of user",
+          "type": "boolean"
+        },
+        "last_name": {
+          "description": "Buyer's last name",
+          "type": "string"
+        },
+        "min_area": {
+          "description": "Buyer's need of minimun area",
+          "type": "string"
+        },
+        "min_bathrooms": {
+          "description": "Buyer's need of minimun bathrooms",
+          "type": "string"
+        },
+        "min_bedrooms": {
+          "description": "Buyer's need of minimun bedrooms",
+          "type": "string"
+        },
+        "notes": {
+          "description": "Favourite Buyer's Notes",
+          "type": "string"
+        },
+        "primary_phone_number": {
+          "description": "Buyer's primary phone number",
+          "type": "string"
+        },
+        "property_type": {
+          "description": "Buyer's need Property Type must be single_family_house/townhouse/condo/apartment/multi_family_house/mobile",
+          "type": "string"
+        },
+        "purchase_type": {
+          "description": "Buyer's need Purchase type must be purchase/lease",
+          "type": "string"
+        }
+      },
+      "title": "Create Buyer",
+      "type": "object"
+    },
+    "CreateSession": {
+      "description": "Login user by passing valid email and password",
+      "example": {
+        "email": "admin@admin.com",
+        "password": "password@123"
+      },
+      "properties": {
+        "email": {
+          "description": "User email must have the @ sign and no spaces",
+          "type": "string"
+        },
+        "password": {
+          "description": "Pasword must be min 12 and max 72",
+          "type": "string"
+        }
+      },
+      "title": "Login User",
+      "type": "object"
+    },
+    "CreateUser": {
+      "description": "Signup user",
+      "example": {
+        "email": "admin@admin.com",
+        "password": "password/123"
+      },
+      "properties": {
+        "email": {
+          "description": "User email must have the @ sign and no spaces",
+          "type": "string"
+        },
+        "password": {
+          "description": "Pasword must be min 12 and max 72",
+          "type": "string"
+        }
+      },
+      "title": "Create User",
+      "type": "object"
+    },
+    "CreateUserByApple": {
+      "description": "Signup user by Social Accounts",
+      "example": {
+        "apple_identifier": "apple_unique_identifier",
+        "email": "sudo@appleemail.com",
+        "provider": "google"
+      },
+      "properties": {
+        "apple_identifier": {
+          "description": "Apple identifier returned by apple auth",
+          "type": "string"
+        },
+        "email": {
+          "description": "User email must have the @ sign and no spaces",
+          "type": "string"
+        },
+        "provider": {
+          "description": "Social Provider (Google/Apple)",
+          "type": "string"
+        }
+      },
+      "title": "Create User with Social Accounts",
+      "type": "object"
+    },
+    "CreateUserSocially": {
+      "description": "Signup user by Social Accounts",
+      "example": {
+        "email": "admin@admin.com",
+        "first_name": "User First Name",
+        "last_name": "User Last Name",
+        "provider": "google"
+      },
+      "properties": {
+        "email": {
+          "description": "User email must have the @ sign and no spaces",
+          "type": "string"
+        },
+        "first_name": {
+          "description": "User first name",
+          "type": "string"
+        },
+        "last_name": {
+          "description": "User last name",
+          "type": "string"
+        },
+        "provider": {
+          "description": "Social Provider (Google/Apple)",
+          "type": "string"
+        }
+      },
+      "title": "Create User with Social Accounts",
+      "type": "object"
+    },
+    "DeleteSession": {
+      "description": "Logout user by passing token",
+      "example": {},
+      "title": "Logout User",
+      "type": "object"
+    },
+    "FavouriteBuyer": {
+      "description": "Favourite Buyer which belongs to current logged in user",
+      "example": {
+        "is_favourite": "true"
+      },
+      "properties": {
+        "is_favourite": {
+          "description": "Is favourite option for buyer",
+          "type": "string"
+        }
+      },
+      "title": "Favourite Buyer",
+      "type": "object"
+    },
+    "GetBuyer": {
+      "description": "Get Buyer with user's details by it's id",
+      "title": "Get Buyer with user's details",
+      "type": "object"
+    },
+    "GetLocation": {
+      "description": "Get a location by a zip code",
+      "title": "Get Location",
+      "type": "object"
+    },
+    "ListAllBuyers": {
+      "description": "List All available Buyers",
+      "title": "List all Buyers",
+      "type": "object"
+    },
+    "ListAllFilteredBuyers": {
+      "description": "List All available Buyers",
+      "example": {
+        "filters": {
+          "financial_status": "pre_qualified, pre_approved, all_cash, undetermined, one of them",
+          "min_area": "1.5k",
+          "min_bathrooms": "1.5",
+          "min_bedrooms": "2",
+          "property_type": " single_family_house, townhouse, condo, apartment, multi_family_house, mobile, one of them",
+          "purchase_type": "purchase, lease, one of them",
+          "search_zip_code": "12345"
+        },
+        "sort_options": {
+          "buyer_locations_of_interest": "asc, desc, one of them",
+          "inserted_at": "desc, asc, one of them"
+        }
+      },
+      "properties": {
+        "sort_options": {
+          "description": "Sort by Options",
+          "type": "map"
+        }
+      },
+      "title": "List all Buyers",
+      "type": "object"
+    },
+    "ListAllLocations": {
+      "description": "List all USA Locations",
+      "title": "List all Locations",
+      "type": "object"
+    },
+    "ListAllStates": {
+      "description": "List all USA States",
+      "title": "List all States",
+      "type": "object"
+    },
+    "ListBuyerLocations": {
+      "description": "List all USA Locations",
+      "title": "List all Locations where our buyer exists",
+      "type": "object"
+    },
+    "ListBuyers": {
+      "description": "List Buyers of current logged in user",
+      "title": "List Buyers",
+      "type": "object"
+    },
+    "ListFavouriteBuyers": {
+      "description": "List All Favourite Buyers which belongs to current logged in user",
+      "title": "List All Favourite Buyers",
+      "type": "object"
+    },
+    "ListOtherBuyers": {
+      "description": "List Other Buyers which aren't belong to current logged in user",
+      "title": "List Other Buyers",
+      "type": "object"
+    },
+    "UpdateBuyer": {
+      "description": "Updated specific buyer",
+      "example": {
+        "additional_requests": [
+          "Desire1",
+          "Desire2",
+          "Desire3"
+        ],
+        "buyer_expiration_date": "2024-06-04 11:08:48Z",
+        "buyer_locations_of_interest": [
+          "Location1",
+          "Location2",
+          "Location3"
+        ],
+        "buyer_need": {
+          "budget_upto": "900k",
+          "financial_status": "pre_qualified, pre_approved, all_cash, undetermined, one of them",
+          "min_area": "1.5k",
+          "min_bathrooms": "1.5",
+          "min_bedrooms": "2",
+          "property_type": " single_family_house, townhouse, condo, apartment, multi_family_house, mobile, one of them",
+          "purchase_type": "purchase, lease, one of them"
+        },
+        "email": "buyer@email.com",
+        "first_name": "First",
+        "image_url": "/image.png",
+        "is_favourite": false,
+        "last_name": "Last",
+        "note": "This is my favourite buyer and I am note for it",
+        "primary_phone_number": "+12345"
+      },
+      "properties": {
+        "additional_requests": {
+          "description": "Buyer's additional desires",
+          "type": "string"
+        },
+        "budget_upto": {
+          "description": "Buyer's Budget upto",
+          "type": "string"
+        },
+        "buyer_expiration_date": {
+          "description": "Datetime of video file last modification",
+          "format": "date-time",
+          "type": "string",
+          "x-nullable": true
+        },
+        "buyer_locations_of_interest": {
+          "description": "Buyer's locations",
+          "type": "list"
+        },
+        "email": {
+          "description": "Buyer's Email address",
+          "type": "string"
+        },
+        "financial_status": {
+          "description": "Buyer's need Financial status must be pre_qualified/pre_approved/all_cash/undeterminded",
+          "type": "string"
+        },
+        "first_name": {
+          "description": "Buyer's first name",
+          "type": "string"
+        },
+        "image_url": {
+          "description": "Buyer's image url",
+          "type": "string"
+        },
+        "is_favourite": {
+          "description": "Buyer is favourite/not_favourite of user",
+          "type": "boolean"
+        },
+        "last_name": {
+          "description": "Buyer's last name",
+          "type": "string"
+        },
+        "min_area": {
+          "description": "Buyer's need of minimun area",
+          "type": "string"
+        },
+        "min_bathrooms": {
+          "description": "Buyer's need of minimun bathrooms",
+          "type": "string"
+        },
+        "min_bedrooms": {
+          "description": "Buyer's need of minimun bedrooms",
+          "type": "string"
+        },
+        "notes": {
+          "description": "Favourite Buyer's Notes",
+          "type": "string"
+        },
+        "primary_phone_number": {
+          "description": "Buyer's primary phone number",
+          "type": "string"
+        },
+        "property_type": {
+          "description": "Buyer's need Property Type must be single_family_house/townhouse/condo/apartment/multi_family_house/mobile",
+          "type": "string"
+        },
+        "purchase_type": {
+          "description": "Buyer's need Purchase type must be purchase/lease",
+          "type": "string"
+        }
+      },
+      "title": "Updated specific buyer",
+      "type": "object"
+    },
+    "UpdatePass": {
+      "description": "Resets password after validating otp and updates new password",
+      "example": {
+        "email": "admin@admin.com",
+        "password": "password@123"
+      },
+      "properties": {
+        "email": {
+          "description": "User email for resetting password",
+          "type": "string"
+        },
+        "password": {
+          "description": "Updated password",
+          "type": "integer"
+        }
+      },
+      "title": "Resets password",
+      "type": "object"
+    },
+    "UpdateProfile": {
+      "description": "Updates user's profile",
+      "example": {
+        "agent_email": "admin@admin.com",
+        "broker_city": "New York",
+        "broker_street_address": "123, Hope Street",
+        "brokerage_lisence_no": "LIS1234",
+        "brokerage_name": "Broker Name",
+        "brokerage_state": "CA",
+        "brokerage_zip_code": "12345",
+        "first_name": "User's first Name",
+        "image_url": "/uploads/9C96BFEA-4192-4396-AC69-41234EE55236_1_201_a.png",
+        "last_name": "User's last Name",
+        "lisence_id_no": "REVS12345",
+        "phone_number_primary": "+012345789"
+      },
+      "properties": {
+        "agent_email": {
+          "description": "User email must have the @ sign and no spaces",
+          "type": "string"
+        },
+        "broker_city": {
+          "description": "Broker's City",
+          "type": "string"
+        },
+        "broker_street_address": {
+          "description": "Broker's Street Address",
+          "type": "string"
+        },
+        "brokerage_lisence_no": {
+          "description": "Broker's lisence number",
+          "type": "string"
+        },
+        "brokerage_name": {
+          "description": "Broker's Name",
+          "type": "string"
+        },
+        "brokerage_state": {
+          "description": "Broker's State",
+          "type": "string"
+        },
+        "brokerage_zip_code": {
+          "description": "Broker's zip code",
+          "type": "string"
+        },
+        "first_name": {
+          "description": "User's first name",
+          "type": "string"
+        },
+        "image_url": {
+          "description": "User's avatar url",
+          "type": "string"
+        },
+        "last_name": {
+          "description": "User's last name",
+          "type": "string"
+        },
+        "lisence_id_no": {
+          "description": "Lisence ID number",
+          "type": "string"
+        },
+        "phone_number_primary": {
+          "description": "User's primary phone number",
+          "type": "string"
+        }
+      },
+      "title": "Updates user's profile",
+      "type": "object"
+    },
+    "UserResetPassword": {
+      "description": "Reset Password",
+      "example": {
+        "email": "admin@admin.com"
+      },
+      "properties": {
+        "email": {
+          "description": "User email for resetting password",
+          "type": "string"
+        }
+      },
+      "title": "Reset Password",
+      "type": "object"
+    },
+    "VerifyOTP": {
+      "description": "Verify OTP",
+      "example": {
+        "email": "admin@admin.com",
+        "otp": 123456
+      },
+      "properties": {
+        "email": {
+          "description": "User email for resetting password",
+          "type": "string"
+        },
+        "otp": {
+          "description": "OTP sent to users email",
+          "type": "integer"
+        }
+      },
+      "title": "Verify OTP",
+      "type": "object"
+    },
+    "buyers": {
+      "example": {
+        "data": {
+          "apple_identifier": "XYZ",
+          "email": "buyer@email.com",
+          "id": 9,
+          "inserted_at": "2024-06-04T11:45:05Z",
+          "provider": "google",
+          "updated_at": "2024-06-04T11:45:05Z",
+          "user_id": 23
+        },
+        "message": {
+          "body": "Successfully created auth provider",
+          "title": "null"
+        }
+      },
+      "properties": {
+        "apple_identifier": {
+          "description": "Apple Auth provider unique idetifier",
+          "type": "string"
+        },
+        "email": {
+          "description": "Auth Provider unique email",
+          "type": "string"
+        },
+        "id": {
+          "description": "Provider unique id",
+          "type": "integer"
+        },
+        "inserted_at": {
+          "description": "User inserted at Datetime",
+          "type": "string"
+        },
+        "provider": {
+          "description": "google/apple/password",
+          "type": "string"
+        },
+        "updated_at": {
+          "description": "User updated at Datetime",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "users": {
+      "example": {
+        "data": {
+          "agent_email": "admin4@admin.com",
+          "broker_city": "New York",
+          "broker_street_address": "123, Hope Street",
+          "brokerage_lisence_no": "LIS1234",
+          "brokerage_name": "Broker Name",
+          "brokerage_state": "CA",
+          "brokerage_zip_code": "12345",
+          "first_name": "First Name",
+          "id": 26,
+          "image_url": "/avatar.png",
+          "inserted_at": "2024-05-20T20:20:37Z",
+          "last_name": "Last Name",
+          "lisence_id_no": "REVS12345",
+          "phone_number_primary": "+123456",
+          "updated_at": "2024-05-20T20:20:37Z"
+        },
+        "message": {
+          "body": "Successfully signed up",
+          "title": "null"
+        }
+      },
+      "properties": {
+        "broker_city": {
+          "description": "Broker's City",
+          "type": "string"
+        },
+        "broker_street_address": {
+          "description": "Broker's Street Address",
+          "type": "string"
+        },
+        "brokerage_lisence_no": {
+          "description": "Broker's lisence number",
+          "type": "string"
+        },
+        "brokerage_name": {
+          "description": "Broker's Name",
+          "type": "string"
+        },
+        "brokerage_state": {
+          "description": "Broker's State",
+          "type": "string"
+        },
+        "brokerage_zip_code": {
+          "description": "Broker's zip code",
+          "type": "string"
+        },
+        "email": {
+          "description": "Email Value",
+          "type": "string"
+        },
+        "first_name": {
+          "description": "First name of user",
+          "type": "string"
+        },
+        "id": {
+          "description": "User unique id",
+          "type": "integer"
+        },
+        "image_url": {
+          "description": "Avatar url",
+          "type": "string"
+        },
+        "inserted_at": {
+          "description": "User inserted at Datetime",
+          "type": "string"
+        },
+        "last_name": {
+          "description": "Last name of user",
+          "type": "string"
+        },
+        "lisence_id_no": {
+          "description": "Lisence ID number",
+          "type": "string"
+        },
+        "phone_number_primary": {
+          "description": "Primary phone number",
+          "type": "string"
+        },
+        "updated_at": {
+          "description": "User updated at Datetime",
+          "type": "string"
+        }
+      },
+      "required": [
+        "email"
+      ],
+      "type": "object"
+    },
+    "users_tokens": {
+      "example": {
+        "data": {
+          "confirmed_at": "2024-05-20T19:28:36Z",
+          "email": "admin@admin.com",
+          "hashed_password": "$2b$12$AfWcJ0KcmMjMgVSiClPTiOsCfn.2XpG4aB15DCesfqDw.9gdXAd7a",
+          "id": 23,
+          "inserted_at": "2024-05-20T19:28:36Z",
+          "password": "2024-05-20T19:28:36Z",
+          "token": "YXLdNjTlPUwQI54SCC_YoXEF1Lx_XrK6vHjRYvUoRjU=",
+          "updated_at": "2024-05-20T19:28:36Z"
+        },
+        "message": {
+          "body": "Successfully logged in",
+          "title": "null"
+        }
+      },
+      "properties": {
+        "context": {
+          "description": "Token generated either for session/email",
+          "type": "string"
+        },
+        "token": {
+          "description": "Token generated as a session for users when login or signup",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "bb.vdev.tech/api",
+  "info": {
+    "contact": {
+      "email": "vladimir.gore@gmail.com",
+      "name": "Vladimir Gorej"
+    },
+    "description": "API Documentation for MyAPI v1",
+    "termsOfService": "Open for public",
+    "title": "MyAPI",
+    "version": "1.0"
+  },
+  "paths": {
+    "/apple-sign-up": {
+      "post": {
+        "description": "Signup user with apple accounts",
+        "operationId": "AtlasWeb.UserController.apple_sign_up",
+        "parameters": [
+          {
+            "description": "Create New User by passing params returned by Apple Accounts",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserByApple"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Signs up user with apple account",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/auth_provider": {
+      "post": {
+        "description": "Create a new login method",
+        "operationId": "AtlasWeb.AuthProviderController.create",
+        "parameters": [
+          {
+            "description": "Create New login method by passing params",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateAuthProvider"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/buyers"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Create an Auth Provider for existing account",
+        "tags": [
+          "AuthProvider"
+        ]
+      }
+    },
+    "/buyer": {
+      "post": {
+        "description": "Create a Buyer",
+        "operationId": "AtlasWeb.BuyerController.create",
+        "parameters": [
+          {
+            "description": "Create New Buyer by passing params",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateBuyer"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/buyers"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Create a Buyer for user",
+        "tags": [
+          "Buyer"
+        ]
+      }
+    },
+    "/buyer/{id}": {
+      "get": {
+        "description": "List of whole application Buyers",
+        "operationId": "AtlasWeb.BuyerController.show",
+        "parameters": [
+          {
+            "description": "Buyer ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": {
+              "$ref": "#/definitions/GetBuyer"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Buyer"
+        ]
+      },
+      "put": {
+        "description": "Updates the details of a specific buyer",
+        "operationId": "AtlasWeb.BuyerController.update",
+        "parameters": [
+          {
+            "description": "Buyer ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "Buyer update parameters",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBuyer"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Buyer updated successfully",
+            "schema": {
+              "$ref": "#/definitions/buyers"
+            }
+          },
+          "404": {
+            "description": "Buyer not found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Updates a buyer",
+        "tags": [
+          "Buyer"
+        ]
+      }
+    },
+    "/buyer_locations": {
+      "post": {
+        "description": "List of all Locations where our buyer's exists",
+        "operationId": "AtlasWeb.LocationController.buyer_locations",
+        "parameters": [
+          {
+            "description": "Zip Code",
+            "in": "body",
+            "name": "zip_code",
+            "required": false,
+            "schema": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": {
+              "$ref": "#/definitions/ListBuyerLocations"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Location"
+        ]
+      }
+    },
+    "/buyer_note/{buyer_id}": {
+      "post": {
+        "description": "Add note to buyer",
+        "operationId": "AtlasWeb.NoteController.create",
+        "parameters": [
+          {
+            "description": "Buyer ID",
+            "in": "path",
+            "name": "buyer_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "Buyer update parameters",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddNote"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/buyers"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Create a Note for favourited Buyers",
+        "tags": [
+          "Note"
+        ]
+      }
+    },
+    "/buyers": {
+      "get": {
+        "description": "List of whole application Buyers",
+        "operationId": "AtlasWeb.BuyerController.index",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": {
+              "$ref": "#/definitions/ListAllBuyers"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Buyer"
+        ]
+      }
+    },
+    "/favourite_buyer/{id}": {
+      "post": {
+        "description": "Any user can make a buyer favourite",
+        "operationId": "AtlasWeb.BuyerController.favourite_buyer",
+        "parameters": [
+          {
+            "description": "Buyer ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "Make buyer favourite paramenters",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FavouriteBuyer"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Marked Buyer favourite/unfavourite successfully",
+            "schema": {
+              "$ref": "#/definitions/buyers"
+            }
+          },
+          "404": {
+            "description": "Buyer not found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Make buyer favourite",
+        "tags": [
+          "Buyer"
+        ]
+      }
+    },
+    "/favourite_buyers": {
+      "get": {
+        "description": "List of All Favourite Buyers which belongs to logged in user",
+        "operationId": "AtlasWeb.BuyerController.favourite_buyers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": {
+              "$ref": "#/definitions/ListFavouriteBuyers"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Buyer"
+        ]
+      }
+    },
+    "/filtered_buyers": {
+      "post": {
+        "description": "List of filtered whole application Buyers",
+        "operationId": "AtlasWeb.BuyerController.filtered_buyers",
+        "parameters": [
+          {
+            "description": "List of all filtered buyers by passing filters",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListAllFilteredBuyers"
+            }
+          }
+        ],
+        "responses": {},
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Buyer"
+        ]
+      }
+    },
+    "/location/{zip_code}": {
+      "get": {
+        "description": "Get a location by there zip code",
+        "operationId": "AtlasWeb.LocationController.show",
+        "parameters": [
+          {
+            "description": "Zip Code",
+            "in": "path",
+            "name": "zip_code",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": {
+              "$ref": "#/definitions/GetLocation"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Location"
+        ]
+      }
+    },
+    "/locations": {
+      "get": {
+        "description": "List of whole USA Locations",
+        "operationId": "AtlasWeb.LocationController.index",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": {
+              "$ref": "#/definitions/ListAllLocations"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Location"
+        ]
+      }
+    },
+    "/other_buyers": {
+      "get": {
+        "description": "List of Other Buyers which doesn't belong to logged in user",
+        "operationId": "AtlasWeb.BuyerController.other_buyers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": {
+              "$ref": "#/definitions/ListOtherBuyers"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Buyer"
+        ]
+      }
+    },
+    "/search_buyers/{zip_code}": {
+      "post": {
+        "description": "List of buyers by searching by zip code",
+        "operationId": "AtlasWeb.BuyerController.search_buyers",
+        "parameters": [
+          {
+            "description": "Zip Code",
+            "in": "path",
+            "name": "zip_code",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {},
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Buyer"
+        ]
+      }
+    },
+    "/social-sign-up": {
+      "post": {
+        "description": "Signup user with social accounts",
+        "operationId": "AtlasWeb.UserController.social_sign_up",
+        "parameters": [
+          {
+            "description": "Create New User by passing params returned by Social Accounts",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserSocially"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Signs up user with social accounts (google/apple)",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/states": {
+      "get": {
+        "description": "List of all USA states",
+        "operationId": "AtlasWeb.LocationController.state_index",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": {
+              "$ref": "#/definitions/ListAllStates"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Location"
+        ]
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "description": "Get user details by passing user id",
+        "operationId": "AtlasWeb.UserController.show",
+        "parameters": [
+          {
+            "description": "User ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Get user details",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/user_buyers": {
+      "get": {
+        "description": "List of Buyers of logged in user",
+        "operationId": "AtlasWeb.BuyerController.user_buyers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": {
+              "$ref": "#/definitions/ListBuyers"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Buyer"
+        ]
+      }
+    },
+    "/users/log_in": {
+      "post": {
+        "description": "Login user",
+        "operationId": "AtlasWeb.UserSessionController.create",
+        "parameters": [
+          {
+            "description": "Create New Session for user by passing params",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateSession"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Login User",
+        "tags": [
+          "UserSession"
+        ]
+      }
+    },
+    "/users/log_out": {
+      "delete": {
+        "description": "Logout User",
+        "operationId": "AtlasWeb.UserSessionController.log_out",
+        "parameters": [
+          {
+            "description": "Logout user and delete it's token",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteSession"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully logged out"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Logout User",
+        "tags": [
+          "UserSession"
+        ]
+      }
+    },
+    "/users/profile": {
+      "put": {
+        "description": "Updates logged in user's profile",
+        "operationId": "AtlasWeb.ProfileController.update_profile",
+        "parameters": [
+          {
+            "description": "Create New User by passing params",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateProfile"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Updates Profile",
+        "tags": [
+          "Profile"
+        ]
+      }
+    },
+    "/users/register": {
+      "post": {
+        "description": "Signup user",
+        "operationId": "AtlasWeb.UserController.create",
+        "parameters": [
+          {
+            "description": "Create New User by passing params",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUser"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Create User",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/users/reset_password": {
+      "post": {
+        "description": "User resets password by passing email",
+        "operationId": "AtlasWeb.UserResetPasswordController.create",
+        "parameters": [
+          {
+            "description": "User resets password by passing email",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserResetPassword"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Email with OTP sent"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "User Reset Password",
+        "tags": [
+          "UserResetPassword"
+        ]
+      },
+      "put": {
+        "description": "Updates password after verification of OTP by passing email and updated password",
+        "operationId": "AtlasWeb.UserResetPasswordController.update",
+        "parameters": [
+          {
+            "description": "Resets password by passing email and updated password",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatePass"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OTP matched successfully"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Updates password after verification of OTP",
+        "tags": [
+          "UserResetPassword"
+        ]
+      }
+    },
+    "/users/reset_password/verify_token": {
+      "post": {
+        "description": "Verify otp sent to email by passing otp and email",
+        "operationId": "AtlasWeb.UserResetPasswordController.verify_otp_and_email",
+        "parameters": [
+          {
+            "description": "User verifies otp by passing email and otp",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VerifyOTP"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OTP matched successfully"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Verify otp sent to email",
+        "tags": [
+          "UserResetPassword"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https",
+    "http",
+    "ws",
+    "wss"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "description": "API Token must be provided via `Authorization: Bearer ` header",
+      "in": "header",
+      "name": "Authorization",
+      "type": "apiKey"
+    }
+  },
+  "swagger": "2.0",
+  "tags": [
+    {
+      "description": "User resources",
+      "name": "Users"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    env_file: .env
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://backend:4000/health_check"]
+      interval: 20s
+      retries: 3
+      start_period: 5s
+    restart: on-failure
+    volumes:
+      - atlas-uploads:/app/uploads 
+    labels:
+      - "traefik.enable=true"
+
+      # for http
+      - "traefik.http.routers.backend.rule=Host(`atlassensordashboard.com`)"
+      - "traefik.http.routers.backend.entrypoints=web"  
+
+      # for https
+      - "traefik.http.routers.backend-secure.rule=Host(`atlassensordashboard.com`)"
+      - "traefik.http.routers.backend-secure.entrypoints=websecure"  
+      - "traefik.http.routers.backend-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.backend-secure.tls=true"  
+
+      - "traefik.http.services.backend.loadbalancer.server.port=4000"
+
+    networks:
+      - atlas-network
+
+networks:
+  atlas-network:
+
+volumes:
+  atlas-uploads:
