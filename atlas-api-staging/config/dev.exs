@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :atlas, Atlas.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "berlin",
   hostname: "localhost",
   database: "atlas_dev",
   stacktrace: true,

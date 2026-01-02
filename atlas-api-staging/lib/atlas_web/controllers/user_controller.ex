@@ -136,19 +136,39 @@ defmodule AtlasWeb.UserController do
   end
 
   def create(conn, user_params) do
-    case Accounts.create_user(user_params) do
+    result = Repo.transaction(fn ->
+      # Create organization first
+      org_name = "#{user_params["first_name"]} #{user_params["last_name"]}'s Organization"
+      
+      case Organizations.create_organization_with_out_user(org_name) do
+        {:ok, organization} ->
+          # Create user with organization_id
+          user_attrs = Map.put(user_params, "organization_id", organization.id)
+          
+          case Accounts.create_user(user_attrs) do
+            {:ok, user} ->
+              # Create default roles
+              Atlas.Roles.create_default_roles_and_rules(organization.id)
+              user_role = Atlas.Roles.get_role_by_organization_name(organization.id, "super_admin")
+              # Link user to organization
+              Accounts.create_user_organization(user.id, organization.id, user_role.id)
+              user
+            {:error, changeset} -> Repo.rollback(changeset)
+          end
+        {:error, changeset} -> Repo.rollback(changeset)
+      end
+    end)
+
+    case result do
       {:ok, user} ->
         role = Atlas.Roles.get_role_rules_by_user_organization(user.id, user.organization_id)
         token = Accounts.generate_user_session_token(user) |> Base.url_encode64()
         user = Map.put(user, "token", token) |> Map.put("role", role)
-
         message = %{title: nil, body: "Successfully signed up"}
-
         render(conn, "user.json", %{user: user, message: message})
 
       {:error, %Ecto.Changeset{} = changeset} ->
         error = translate_errors(changeset)
-
         conn
         |> put_status(:bad_request)
         |> render("error.json", error: error)
@@ -159,6 +179,30 @@ defmodule AtlasWeb.UserController do
         |> render("message.json", %{message: message})
     end
   end
+  # def create(conn, user_params) do
+  #   case Accounts.create_user(user_params) do
+  #     {:ok, user} ->
+  #       role = Atlas.Roles.get_role_rules_by_user_organization(user.id, user.organization_id)
+  #       token = Accounts.generate_user_session_token(user) |> Base.url_encode64()
+  #       user = Map.put(user, "token", token) |> Map.put("role", role)
+# 
+  #       message = %{title: nil, body: "Successfully signed up"}
+# 
+  #       render(conn, "user.json", %{user: user, message: message})
+# 
+  #     {:error, %Ecto.Changeset{} = changeset} ->
+  #       error = translate_errors(changeset)
+# 
+  #       conn
+  #       |> put_status(:bad_request)
+  #       |> render("error.json", error: error)
+# 
+  #     {:error, message} ->
+  #       conn
+  #       |> put_status(:bad_request)
+  #       |> render("message.json", %{message: message})
+  #   end
+  # end
 
   def update_or_create_profile(user, user_params) do
     profile_changeset =

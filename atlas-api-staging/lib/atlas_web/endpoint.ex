@@ -34,7 +34,7 @@ defmodule AtlasWeb.Endpoint do
     from: Path.expand("./uploads"),
     gzip: false
 
-  plug CORSPlug, origin: "https://dash.atlassensordashboard.com"
+  # plug CORSPlug, origin: "https://dash.atlassensordashboard.com"
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
@@ -68,5 +68,9 @@ defmodule AtlasWeb.Endpoint do
   # Adding Sentry context to attach additional request info
   # <-- Add this line to capture context
   plug Sentry.PlugContext
+
+  plug CORSPlug, origin: ["http://localhost:5173", "https://dash.atlassensordashboard.com"]
+  
   plug AtlasWeb.Router
+ 
 end

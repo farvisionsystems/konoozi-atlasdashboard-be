@@ -83,7 +83,8 @@ defmodule Atlas.MixProject do
       {:ex_aws, "~> 2.5"},
       {:ex_aws_s3, "~> 2.5"},
       {:quantum, "~> 3.0"},
-      {:crontab, "~> 1.1"}
+      {:crontab, "~> 1.1"},
+      {:gen_smtp, "~> 1.3.0", override: true},
     ]
   end
 
