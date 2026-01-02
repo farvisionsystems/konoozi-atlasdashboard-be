@@ -100,7 +100,8 @@ defmodule AtlasWeb.DomController do
             "firmware_version" => Map.get(data, "firm_ver"),
             "name" => Map.get(data, "name") || Map.get(data, "nickname"),
             "mac_address" => Map.get(data, "mac_address") || Map.get(data, "mac"),
-            "auto_region" => Map.get(data, "auto_gen") || Map.get(data, "auto_region") || Map.get(data, "auto_regen")
+            "auto_region" => Map.get(data, "auto_gen") || Map.get(data, "auto_region") || Map.get(data, "auto_regen"),
+            "alarm_notification_phone" => Map.get(data, "cell_number")
           }
 
           IO.inspect(optional_fields, label: "optional_fields")
